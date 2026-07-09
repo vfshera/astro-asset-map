@@ -13,6 +13,8 @@ import {
 import type { AssetsVitePluginOptions } from "./types.js";
 
 export function assetsMapVitePlugin(options: AssetsVitePluginOptions): Plugin {
+  console.log("plugin created");
+
   const { assetsDir, root, typesFileRef } = options;
   const globBase = path.relative(root, assetsDir);
 
@@ -33,14 +35,18 @@ export function assetsMapVitePlugin(options: AssetsVitePluginOptions): Plugin {
   }
 
   return {
-    name: `vite-${PLUGIN_NAME}`,
+    name: PLUGIN_NAME,
 
     async buildStart() {
       await regenerateTypes();
     },
 
     resolveId(id) {
-      if (id === VIRTUAL_MODULE_ID){ return RESOLVED_VIRTUAL_MODULE_ID;}
+      if (id === VIRTUAL_MODULE_ID) {
+
+
+        return RESOLVED_VIRTUAL_MODULE_ID;
+      }
     },
 
     load(id) {

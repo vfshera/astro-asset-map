@@ -4,7 +4,7 @@ import type { AstroIntegration } from "astro";
 import { assetsMapVitePlugin } from "./plugin.js";
 import {
   ASSETS_DIR,
-  PLUGIN_NAME,
+  PACKAGE_NAME,
   TYPES_FILE_NAME,
   VIRTUAL_MODULE_ID,
 } from "./constants.js";
@@ -14,7 +14,7 @@ export function assetMap(): AstroIntegration {
   const typesFileRef: TypesFileRef = {};
 
   return {
-    name: PLUGIN_NAME,
+    name: PACKAGE_NAME,
     hooks: {
       "astro:config:setup": ({ config, updateConfig }) => {
         const root = fileURLToPath(config.root);

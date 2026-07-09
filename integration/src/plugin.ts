@@ -18,10 +18,11 @@ export function assetsMapVitePlugin(options: AssetsVitePluginOptions): Plugin {
 
   async function regenerateTypes(): Promise<void> {
     if (!typesFileRef.url) {
-      // config:done hasn't run yet (shouldn't happen for buildStart/dev
-      // watch events, but guard anyway rather than throwing).
+      // Config:done hasn't run yet (shouldn't happen for buildStart/dev
+      // Watch events, but guard anyway rather than throwing).
       return;
     }
+
     const assets = await scanAssets(assetsDir);
     const directories = getDirectories(assets);
     const dts = generateTypes(assets, directories);
@@ -39,7 +40,7 @@ export function assetsMapVitePlugin(options: AssetsVitePluginOptions): Plugin {
     },
 
     resolveId(id) {
-      if (id === VIRTUAL_MODULE_ID) return RESOLVED_VIRTUAL_MODULE_ID;
+      if (id === VIRTUAL_MODULE_ID){ return RESOLVED_VIRTUAL_MODULE_ID;}
     },
 
     load(id) {

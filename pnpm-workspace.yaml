@@ -3,6 +3,7 @@ packages:
   - playground
 allowBuilds:
   esbuild: false
+  lefthook: false
   sharp: false
 minimumReleaseAgeExclude:
   - '@astrojs/telemetry@3.3.3'

@@ -1,6 +1,6 @@
 export const PACKAGE_NAME = "astro-asset-map";
 
-export const PLUGIN_NAME = `vite:${PACKAGE_NAME}`;
+export const PLUGIN_NAME = `vite-plugin-${PACKAGE_NAME}`;
 
 export const VIRTUAL_MODULE_ID = `${PACKAGE_NAME}/runtime`;
 

@@ -3,6 +3,7 @@ import pkg from "./package.json";
 
 export default defineConfig((options) => {
   const dev = !!options.watch;
+
   return {
     entry: ["src/**/*.(ts|js)"],
     format: ["esm"],
@@ -13,7 +14,7 @@ export default defineConfig((options) => {
     clean: true,
     splitting: false,
     minify: !dev,
-    external: [...Object.keys(pkg.peerDependencies)],
+    external: Object.keys(pkg.peerDependencies),
     tsconfig: "tsconfig.json",
   };
 });

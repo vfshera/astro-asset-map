@@ -1,20 +1,19 @@
 import { defineConfig } from "tsdown";
-import pkg from "./package.json";
 
 export default defineConfig((options) => {
   const dev = !!options.watch;
 
   return {
-    entry: ["src/**/*.(ts|js)"],
-    format: ["esm"],
-    target: "node18",
+    entry: ["src/index.ts"],
+    format: ["esm"], target: "es2022",
     bundle: true,
     dts: true,
     sourcemap: true,
     clean: true,
-    splitting: false,
+    splitting: true,
     minify: !dev,
-    external: Object.keys(pkg.peerDependencies),
-    tsconfig: "tsconfig.json",
+    copy: [{ from: "../README.md", to: "." }],
+    publint: true,
+    attw: { ignoreRules: ["cjs-resolves-to-esm"] }
   };
 });

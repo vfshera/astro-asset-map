@@ -7,7 +7,7 @@ Generate a type-safe asset map for Astro.
 ```astro
 ---
 import { Image } from "astro:assets";
-import { asset } from "astro-asset-map";
+import { asset } from "astro-asset-map:runtime";
 ---
 
 <Image
@@ -49,7 +49,7 @@ Add the integration to your Astro config.
 
 ```ts
 import { defineConfig } from "astro/config";
-import assetMap from "astro-asset-map";
+import { assetMap } from "astro-asset-map";
 
 export default defineConfig({
   integrations: [assetMap()],
@@ -77,7 +77,7 @@ use
 ```astro
 ---
 import { Image } from "astro:assets";
-import { asset } from "astro-asset-map";
+import { asset } from "astro-asset-map:runtime";
 ---
 
 <Image
@@ -129,11 +129,7 @@ const assets = asset.list();
 Example:
 
 ```ts
-[
-  "images/car.webp",
-  "images/logo.svg",
-  "icons/menu.svg",
-]
+["images/car.webp", "images/logo.svg", "icons/menu.svg"];
 ```
 
 ---
@@ -149,10 +145,7 @@ const images = asset.list("images");
 Example:
 
 ```ts
-[
-  "images/car.webp",
-  "images/logo.svg",
-]
+["images/car.webp", "images/logo.svg"];
 ```
 
 The directory argument is fully typed.
@@ -164,17 +157,17 @@ The directory argument is fully typed.
 Asset paths are generated automatically.
 
 ```ts
-asset("images/logo.svg");      // ✅
+asset("images/logo.svg"); // ✅
 
-asset("images/log.svg");       // ❌ TypeScript error
+asset("images/log.svg"); // ❌ TypeScript error
 ```
 
 Directory names are also typed.
 
 ```ts
-asset.list("images");          // ✅
+asset.list("images"); // ✅
 
-asset.list("photos");          // ❌ TypeScript error
+asset.list("photos"); // ❌ TypeScript error
 ```
 
 ---

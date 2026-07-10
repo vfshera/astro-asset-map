@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import type { ScannedAsset } from "./types.js";
 import { generateTypes } from "./generator.js";
+import type { ScannedAsset } from "./types.js";
 
 describe("generateTypes", () => {
   it("generates declarations with root-level and nested assets", () => {
@@ -18,7 +18,7 @@ describe("generateTypes", () => {
     expect(result).toContain('"images/logo.svg"');
     expect(result).toContain('"images/banner.webp"');
     expect(result).toContain('"fonts/roboto.woff2"');
-    expect(result).toContain('type AssetDirectory =');
+    expect(result).toContain("type AssetDirectory =");
     expect(result).toContain('| "fonts"');
     expect(result).toContain('| "images"');
     expect(result).toContain("exists(path: string): path is AssetPath;");
@@ -47,7 +47,7 @@ describe("generateTypes", () => {
 
     expect(result).toContain('"root-file.txt"');
     expect(result).toContain('"sub/deep/file.txt"');
-    expect(result).toContain('type AssetDirectory =');
+    expect(result).toContain("type AssetDirectory =");
     expect(result).toContain('| "sub"');
   });
 });

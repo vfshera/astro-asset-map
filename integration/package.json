@@ -2,6 +2,24 @@
   "name": "astro-asset-map",
   "version": "0.0.1",
   "description": "Type-safe asset lookup for Astro.",
+  "keywords": [
+    "astro",
+    "astro-asset",
+    "astro-asset-map",
+    "astro-integration",
+    "withastro"
+  ],
+  "homepage": "https://github.com/vfshera/astro-asset-map#readme",
+  "bugs": "https://github.com/vfshera/astro-asset-map/issues",
+  "license": "MIT",
+  "author": "Franklin Shera",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vfshera/astro-asset-map.git"
+  },
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "sideEffects": false,
   "main": "./dist/index.mjs",
@@ -12,9 +30,6 @@
       "import": "./dist/index.mjs"
     }
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "dev": "tsdown --watch",
     "build": "tsdown",
@@ -22,24 +37,6 @@
     "test": "vitest",
     "test:run": "vitest run",
     "test:watch": "vitest --watch"
-  },
-  "keywords": [
-    "astro-integration",
-    "withastro",
-    "astro",
-    "astro-asset-map",
-    "astro-asset"
-  ],
-  "author": "Franklin Shera",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vfshera/astro-asset-map.git"
-  },
-  "bugs": "https://github.com/vfshera/astro-asset-map/issues",
-  "homepage": "https://github.com/vfshera/astro-asset-map#readme",
-  "license": "MIT",
-  "peerDependencies": {
-    "astro": "^6.0.0 || ^7.0.0"
   },
   "dependencies": {
     "fastest-levenshtein": "^1.0.16",
@@ -54,5 +51,8 @@
     "tsdown": "^0.22.4",
     "vite": "^8.0.13",
     "vitest": "^4.1.10"
+  },
+  "peerDependencies": {
+    "astro": "^6.0.0 || ^7.0.0"
   }
 }

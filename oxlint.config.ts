@@ -1,7 +1,7 @@
 import { defineConfig } from "oxlint";
 
 export default defineConfig({
-  ignorePatterns: ["pnpm-lock.yaml","dist"],
+  ignorePatterns: ["pnpm-lock.yaml", "dist"],
   plugins: ["typescript", "unicorn", "oxc", "import", "node", "promise"],
   categories: {
     correctness: "error",

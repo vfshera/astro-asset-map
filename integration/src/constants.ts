@@ -9,3 +9,5 @@ export const RESOLVED_VIRTUAL_MODULE_ID = `\0${VIRTUAL_MODULE_ID}`;
 export const TYPES_FILE_NAME = "astro-asset-map.d.ts";
 
 export const ASSETS_DIR = "src/assets";
+
+export const WATCH_DEBOUNCE_MS = 150;

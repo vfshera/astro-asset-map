@@ -7,7 +7,9 @@
     "dev": "pnpm --stream -r -parallel dev",
     "build": "pnpm --filter astro-asset-map build",
     "lint": "oxlint",
-    "lint:fix": "oxlint --fix"
+    "lint:fix": "oxlint --fix",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check ."
   },
   "keywords": [],
   "author": "",
@@ -22,6 +24,7 @@
   "devDependencies": {
     "@stylistic/eslint-plugin": "^5.10.0",
     "lefthook": "^2.1.9",
+    "oxfmt": "^0.58.0",
     "oxlint": "^1.73.0",
     "typescript": "^6.0.3"
   }

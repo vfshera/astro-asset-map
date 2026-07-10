@@ -13,7 +13,6 @@ export default defineConfig((options) => {
     clean: true,
     splitting: true,
     minify: !dev,
-    copy: [{ from: "../README.md", to: "." }],
     publint: true,
     attw: { ignoreRules: ["cjs-resolves-to-esm"] },
   };

@@ -19,14 +19,14 @@ Type-safe asset map for Astro — reference files in `src/assets` without import
 
 ## Commands
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Watch mode for integration + playground |
-| `pnpm build` | Build the integration package |
-| `pnpm lint` | Run oxlint |
-| `pnpm lint:fix` | Run oxlint with auto-fix |
-| `pnpm format` | Run oxfmt |
-| `pnpm format:check` | Check formatting without writing |
+| Command             | Description                             |
+| ------------------- | --------------------------------------- |
+| `pnpm dev`          | Watch mode for integration + playground |
+| `pnpm build`        | Build the integration package           |
+| `pnpm lint`         | Run oxlint                              |
+| `pnpm lint:fix`     | Run oxlint with auto-fix                |
+| `pnpm format`       | Run oxfmt                               |
+| `pnpm format:check` | Check formatting without writing        |
 
 ## Code Conventions
 
@@ -51,6 +51,7 @@ Format: `<type>(<scope>): <description>`
 - **Never commit directly to `main`** — always use feature/dev branches
 
 Examples:
+
 ```
 feat(devx): add oxfmt formatter with import sorting
 fix(scanner): handle nested directory edge case

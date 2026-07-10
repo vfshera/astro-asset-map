@@ -33,9 +33,7 @@ describe("getDirectories", () => {
   });
 
   it("handles deep nesting", () => {
-    const assets: ScannedAsset[] = [
-      { path: "a/b/c/file.txt", absolute: "/x/a/b/c/file.txt" },
-    ];
+    const assets: ScannedAsset[] = [{ path: "a/b/c/file.txt", absolute: "/x/a/b/c/file.txt" }];
 
     const result = getDirectories(assets);
 

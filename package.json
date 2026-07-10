@@ -1,31 +1,32 @@
 {
   "name": "root",
   "private": true,
+  "keywords": [],
+  "author": "",
+  "type": "module",
   "scripts": {
     "package:dev": "pnpm --filter astro-asset-map dev",
     "playground:dev": "pnpm --filter playground dev",
     "dev": "pnpm --stream -r -parallel dev",
     "build": "pnpm --filter astro-asset-map build",
+    "test": "pnpm --filter astro-asset-map test:run",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "format": "oxfmt .",
     "format:check": "oxfmt --check ."
   },
-  "keywords": [],
-  "author": "",
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "^11.9.0",
-      "onFail": "download"
-    }
-  },
-  "type": "module",
   "devDependencies": {
     "@stylistic/eslint-plugin": "^5.10.0",
     "lefthook": "^2.1.9",
     "oxfmt": "^0.58.0",
     "oxlint": "^1.73.0",
     "typescript": "^6.0.3"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^11.9.0",
+      "onFail": "download"
+    }
   }
 }

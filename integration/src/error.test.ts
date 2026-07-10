@@ -30,12 +30,7 @@ describe("createUnknownAssetError", () => {
   });
 
   it("suggests multiple close matches", () => {
-    const paths = [
-      "images/hero.webp",
-      "blog/hero.webp",
-      "products/hero.webp",
-      "images/hero.heic",
-    ];
+    const paths = ["images/hero.webp", "blog/hero.webp", "products/hero.webp", "images/hero.heic"];
     const dirs = ["images", "blog", "products"];
     const err = createUnknownAssetError("images/hero.png", paths, dirs);
 

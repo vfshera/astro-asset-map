@@ -1,5 +1,10 @@
 import path from "pathe";
-import { VIRTUAL_MODULE_ID, RESOLVED_VIRTUAL_MODULE_ID, PLUGIN_NAME, WATCH_DEBOUNCE_MS } from "./constants.js";
+import {
+  VIRTUAL_MODULE_ID,
+  RESOLVED_VIRTUAL_MODULE_ID,
+  PLUGIN_NAME,
+  WATCH_DEBOUNCE_MS,
+} from "./constants.js";
 import { generateTypes } from "./generator.js";
 import { buildRuntimeModule } from "./runtime.js";
 import { scanAssets, getDirectories } from "./scanner.js";
@@ -16,7 +21,9 @@ export function assetsMapVitePlugin(options: AssetsVitePluginOptions): Plugin {
   const globBase = path.relative(root, assetsDir);
 
   async function regenerateTypes(): Promise<void> {
-    if (!typesFileRef.url) { return; }
+    if (!typesFileRef.url) {
+      return;
+    }
 
     const assets = await scanAssets(assetsDir);
     const directories = getDirectories(assets);
@@ -25,7 +32,9 @@ export function assetsMapVitePlugin(options: AssetsVitePluginOptions): Plugin {
 
     try {
       const existing = await fs.readFile(filePath, "utf-8");
-      if (existing === dts) { return; }
+      if (existing === dts) {
+        return;
+      }
     } catch {
       // File doesn't exist yet — proceed to write
     }

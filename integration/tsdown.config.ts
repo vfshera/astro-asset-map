@@ -5,8 +5,9 @@ export default defineConfig((options) => {
 
   return {
     entry: ["src/index.ts"],
-    format: ["esm"], target: "es2022",
-    bundle: true,
+    format: ["esm"],
+    target: "es2022",
+    unbundle: true,
     dts: true,
     sourcemap: true,
     clean: true,
@@ -14,6 +15,6 @@ export default defineConfig((options) => {
     minify: !dev,
     copy: [{ from: "../README.md", to: "." }],
     publint: true,
-    attw: { ignoreRules: ["cjs-resolves-to-esm"] }
+    attw: { ignoreRules: ["cjs-resolves-to-esm"] },
   };
 });

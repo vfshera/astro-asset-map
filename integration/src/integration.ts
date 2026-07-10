@@ -1,14 +1,9 @@
 import path from "pathe";
-import { fileURLToPath } from "node:url";
-import type { AstroIntegration } from "astro";
+import { ASSETS_DIR, PACKAGE_NAME, TYPES_FILE_NAME, VIRTUAL_MODULE_ID } from "./constants.js";
 import { assetsMapVitePlugin } from "./plugin.js";
-import {
-  ASSETS_DIR,
-  PACKAGE_NAME,
-  TYPES_FILE_NAME,
-  VIRTUAL_MODULE_ID,
-} from "./constants.js";
 import { type TypesFileRef } from "./types.js";
+import type { AstroIntegration } from "astro";
+import { fileURLToPath } from "node:url";
 
 export function assetMap(): AstroIntegration {
   const typesFileRef: TypesFileRef = {};

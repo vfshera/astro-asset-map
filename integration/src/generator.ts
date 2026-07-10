@@ -1,21 +1,15 @@
+import path from "pathe";
 import { PACKAGE_NAME, VIRTUAL_MODULE_ID } from "./constants.js";
 import type { ScannedAsset } from "./types.js";
-import path from "pathe";
 
 /**
  * Generates the ambient declaration file for  virtual module.
  * This is the sole source of type information — the runtime module
  * itself carries no type annotations.
  */
-export function generateTypes(
-  assets: ScannedAsset[],
-  directories: string[],
-): string {
+export function generateTypes(assets: ScannedAsset[], directories: string[]): string {
   const assetMapEntries = assets
-    .map(
-      (a) =>
-        `    "${a.path}": typeof import("${path.normalize(a.absolute)}").default;`,
-    )
+    .map((a) => `    "${a.path}": typeof import("${path.normalize(a.absolute)}").default;`)
     .join("\n");
 
   const directoryUnion = directories.length

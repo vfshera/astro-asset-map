@@ -1,16 +1,12 @@
 import path from "pathe";
-import fs from "node:fs/promises";
-import { fileURLToPath } from "node:url";
-import type { Plugin } from "vite";
-import { scanAssets, getDirectories } from "./scanner.js";
+import { VIRTUAL_MODULE_ID, RESOLVED_VIRTUAL_MODULE_ID, PLUGIN_NAME } from "./constants.js";
 import { generateTypes } from "./generator.js";
 import { buildRuntimeModule } from "./runtime.js";
-import {
-  VIRTUAL_MODULE_ID,
-  RESOLVED_VIRTUAL_MODULE_ID,
-  PLUGIN_NAME,
-} from "./constants.js";
+import { scanAssets, getDirectories } from "./scanner.js";
 import type { AssetsVitePluginOptions } from "./types.js";
+import type { Plugin } from "vite";
+import fs from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 
 export function assetsMapVitePlugin(options: AssetsVitePluginOptions): Plugin {
   console.log("plugin created");
@@ -43,8 +39,6 @@ export function assetsMapVitePlugin(options: AssetsVitePluginOptions): Plugin {
 
     resolveId(id) {
       if (id === VIRTUAL_MODULE_ID) {
-
-
         return RESOLVED_VIRTUAL_MODULE_ID;
       }
     },
@@ -59,17 +53,13 @@ export function assetsMapVitePlugin(options: AssetsVitePluginOptions): Plugin {
       server.watcher.add(assetsDir);
 
       const handleFsEvent = async (changedPath: string) => {
-        if (
-          !path.normalize(changedPath).startsWith(path.normalize(assetsDir))
-        ) {
+        if (!path.normalize(changedPath).startsWith(path.normalize(assetsDir))) {
           return;
         }
 
         await regenerateTypes();
 
-        const mod = server.moduleGraph.getModuleById(
-          RESOLVED_VIRTUAL_MODULE_ID,
-        );
+        const mod = server.moduleGraph.getModuleById(RESOLVED_VIRTUAL_MODULE_ID);
 
         if (mod) {
           server.moduleGraph.invalidateModule(mod);

@@ -39,6 +39,7 @@
     "astro": "^6.0.0 || ^7.0.0"
   },
   "dependencies": {
+    "fastest-levenshtein": "^1.0.16",
     "pathe": "^2.0.3",
     "tinyglobby": "^0.2.17"
   },

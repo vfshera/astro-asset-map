@@ -11,3 +11,5 @@ export const TYPES_FILE_NAME = "astro-asset-map.d.ts";
 export const ASSETS_DIR = "src/assets";
 
 export const WATCH_DEBOUNCE_MS = 150;
+
+export const MAX_EDIT_DISTANCE = 5;

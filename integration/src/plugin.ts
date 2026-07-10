@@ -54,12 +54,16 @@ export function assetsMapVitePlugin(options: AssetsVitePluginOptions): Plugin {
       if (id === VIRTUAL_MODULE_ID) {
         return RESOLVED_VIRTUAL_MODULE_ID;
       }
+
+      return null;
     },
 
     load(id) {
       if (id === RESOLVED_VIRTUAL_MODULE_ID) {
         return buildRuntimeModule(globBase);
       }
+
+      return null;
     },
 
     configureServer(server) {

@@ -15,5 +15,6 @@ export default defineConfig((options) => {
     minify: !dev,
     publint: true,
     attw: { ignoreRules: ["cjs-resolves-to-esm"] },
+    copy: [{ from: "../LICENSE", to: "." }],
   };
 });

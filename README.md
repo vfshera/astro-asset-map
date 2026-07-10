@@ -3,3 +3,7 @@
 Generate a type-safe asset map for Astro.
 
 View Package [README](https://github.com/vfshera/astro-asset-map/blob/main/integration/README.md)
+
+## License
+
+[MIT](https://github.com/vfshera/astro-asset-map/blob/main/LICENSE)

@@ -30,7 +30,9 @@ export function getDirectories(assets: ScannedAsset[]): string[] {
   const dirs = new Set<string>();
   for (const asset of assets) {
     const [first, ...rest] = asset.path.split("/");
-    if (rest.length > 0 && first) {dirs.add(first);}
+    if (rest.length > 0 && first) {
+      dirs.add(first);
+    }
   }
 
   return [...dirs].sort((a, b) => a.localeCompare(b));

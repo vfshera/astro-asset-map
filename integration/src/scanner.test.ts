@@ -1,6 +1,44 @@
 import { describe, expect, it } from "vitest";
-import { getDirectories } from "./scanner.js";
+import { scanAssets, getDirectories } from "./scanner.js";
 import type { ScannedAsset } from "./types.js";
+import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+
+async function withTempDir(fn: (dir: string) => Promise<void>): Promise<void> {
+  const tmp = await mkdtemp(join(tmpdir(), "astro-asset-map-test-"));
+  try {
+    await fn(tmp);
+  } finally {
+    await rm(tmp, { recursive: true, force: true });
+  }
+}
+
+describe("scanAssets", () => {
+  it("includes image files and excludes non-image files", async () => {
+    await withTempDir(async (dir) => {
+      await writeFile(join(dir, "logo.svg"), "");
+      await writeFile(join(dir, "photo.jpg"), "");
+      await writeFile(join(dir, "notes.txt"), "");
+      await writeFile(join(dir, "data.json"), "");
+
+      const result = await scanAssets(dir);
+
+      const paths = result.map((a) => a.path);
+      expect(paths).toEqual(["logo.svg", "photo.jpg"]);
+    });
+  });
+
+  it("returns empty array when no image files exist", async () => {
+    await withTempDir(async (dir) => {
+      await writeFile(join(dir, "readme.md"), "");
+
+      const result = await scanAssets(dir);
+
+      expect(result).toEqual([]);
+    });
+  });
+});
 
 describe("getDirectories", () => {
   it("returns directory names from nested assets", () => {

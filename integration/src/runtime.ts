@@ -1,4 +1,9 @@
-import { PLUGIN_NAME } from "./constants.js";
+import { PLUGIN_NAME, VALID_INPUT_FORMATS } from "./constants.js";
+
+const VALID_GLOB_EXTENSIONS = [
+  ...VALID_INPUT_FORMATS,
+  ...VALID_INPUT_FORMATS.map((ext) => ext.toUpperCase()),
+].join(",");
 
 /**
  * Builds the source code for the virtual module.
@@ -10,7 +15,7 @@ export function buildRuntimeModule(globBase: string): string {
   const escapedBase = RegExp.escape(globBase);
 
   return `// Auto-generated runtime for ${PLUGIN_NAME}. Do not edit.
-const modules = import.meta.glob("/${globBase}/**/*", {
+const modules = import.meta.glob("/${globBase}/**/*.{${VALID_GLOB_EXTENSIONS}}", {
   eager: true,
   import: "default"
 });

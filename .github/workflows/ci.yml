@@ -5,6 +5,10 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_call: # allows release.yml to invoke this as a job dependency
+
+permissions:
+  contents: read # explicit + minimal; no default write access to GITHUB_TOKEN
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -13,8 +17,17 @@ concurrency:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    timeout-minutes: 15 # bound worst-case runtime / exfiltration window
+
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+        with:
+          egress-policy: audit # switch to `block` + `allowed-endpoints` once you've reviewed a few runs' network logs
+
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false # don't leave GITHUB_TOKEN in .git/config for build-time code to read
 
       - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
 

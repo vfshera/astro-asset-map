@@ -7,7 +7,7 @@ Generate a type-safe asset map for Astro.
 ```astro
 ---
 import { Image } from "astro:assets";
-import { asset } from "astro-asset-map";
+import { asset } from "astro-asset-map:runtime";
 ---
 
 <Image
@@ -49,7 +49,7 @@ Add the integration to your Astro config.
 
 ```ts
 import { defineConfig } from "astro/config";
-import assetMap from "astro-asset-map";
+import { assetMap } from "astro-asset-map";
 
 export default defineConfig({
   integrations: [assetMap()],
@@ -77,7 +77,7 @@ use
 ```astro
 ---
 import { Image } from "astro:assets";
-import { asset } from "astro-asset-map";
+import { asset } from "astro-asset-map:runtime";
 ---
 
 <Image

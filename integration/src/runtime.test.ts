@@ -5,7 +5,7 @@ describe("buildRuntimeModule", () => {
   it("generates a runtime module with correct glob path", () => {
     const result = buildRuntimeModule("src/assets");
 
-    expect(result).toContain('import.meta.glob("/src/assets/**/*"');
+    expect(result).toContain('import.meta.glob("/src/assets/**/*.{');
     expect(result).toContain("stripPrefix");
     expect(result).toContain("assetMap");
     expect(result).toContain("function asset(path)");

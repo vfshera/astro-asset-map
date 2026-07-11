@@ -1,9 +1,13 @@
 import path from "pathe";
 import { glob } from "tinyglobby";
+import { VALID_INPUT_FORMATS } from "./constants.js";
 import type { ScannedAsset } from "./types.js";
 
+const VALID_EXT_REGEX = new RegExp(`\\.(${VALID_INPUT_FORMATS.join("|")})$`, "i");
+
 /**
- * Scans the assets directory and returns a normalized, sorted list of assets.
+ * Scans the assets directory and returns a normalized, sorted list of assets
+ * matching VALID_INPUT_FORMATS.
  */
 export async function scanAssets(assetsDir: string): Promise<ScannedAsset[]> {
   const entries = await glob("**/*", {
@@ -14,6 +18,7 @@ export async function scanAssets(assetsDir: string): Promise<ScannedAsset[]> {
   });
 
   return entries
+    .filter((relPath) => VALID_EXT_REGEX.test(relPath))
     .map(path.normalize)
     .sort((a, b) => a.localeCompare(b))
     .map((relPath) => ({

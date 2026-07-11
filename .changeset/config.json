@@ -1,7 +1,12 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.1.4/schema.json",
-  "changelog": ["@changesets/changelog-github", { "repo": "vfshera/astro-asset-map" }],
+  "changelog": [
+    "@changesets/changelog-github",
+    { "repo": "vfshera/astro-asset-map" }
+  ],
   "commit": false,
+  "fixed": [],
+  "linked": [],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",

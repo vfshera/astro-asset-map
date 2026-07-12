@@ -4,7 +4,7 @@ export default defineConfig((options) => {
   const dev = !!options.watch;
 
   return {
-    entry: ["src/index.ts"],
+    entry: ["src/index.ts", "src/utils.ts"],
     format: ["esm"],
     target: "es2022",
     unbundle: true,
@@ -14,7 +14,7 @@ export default defineConfig((options) => {
     splitting: true,
     minify: !dev,
     publint: true,
-    attw: { ignoreRules: ["cjs-resolves-to-esm"] },
+    attw: { ignoreRules: ["cjs-resolves-to-esm"], profile: "esm-only" },
     copy: [{ from: "../LICENSE", to: "." }],
   };
 });

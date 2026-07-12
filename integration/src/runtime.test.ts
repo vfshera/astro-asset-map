@@ -21,12 +21,10 @@ describe("buildRuntimeModule", () => {
     expect(result).toContain("const directories = Object.freeze(");
   });
 
-  it("includes inline levenshtein and error helper", () => {
+  it("imports createUnknownAssetError from astro-asset-map/utils", () => {
     const result = buildRuntimeModule("src/assets");
 
-    expect(result).toContain("function levenshtein(a, b)");
-    expect(result).toContain("function findClosest(str, candidates)");
-    expect(result).toContain("function createUnknownAssetError(path, assetPaths, directories)");
+    expect(result).toContain('import { createUnknownAssetError } from "astro-asset-map/utils"');
   });
 
   it("calls createUnknownAssetError on lookup failure", () => {

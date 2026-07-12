@@ -9,24 +9,26 @@ import { generateTypes } from "./generator.js";
 import { buildRuntimeModule } from "./runtime.js";
 import { scanAssets, getDirectories } from "./scanner.js";
 import { debounce } from "./utils.js";
-import type { AssetsVitePluginOptions } from "./types.js";
+import type { AssetsVitePluginOptions, ScannedAsset } from "./types.js";
 import type { Plugin } from "vite";
 import fs from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
 export function assetsMapVitePlugin(options: AssetsVitePluginOptions): Plugin {
-  console.log("plugin created");
-
   const { assetsDir, root, typesFileRef } = options;
   const globBase = path.relative(root, assetsDir);
+
+  let assets: ScannedAsset[] = [];
 
   async function regenerateTypes(): Promise<void> {
     if (!typesFileRef.url) {
       return;
     }
 
-    const assets = await scanAssets(assetsDir);
+    assets = await scanAssets(assetsDir);
+
     const directories = getDirectories(assets);
+
     const dts = generateTypes(assets, directories);
     const filePath = fileURLToPath(typesFileRef.url);
 

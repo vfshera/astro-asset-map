@@ -14,7 +14,9 @@
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "format": "oxfmt .",
-    "format:check": "oxfmt --check ."
+    "format:check": "oxfmt --check .",
+    "ci:publish": "pnpm publish -r",
+    "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.7.0",
@@ -25,11 +27,5 @@
     "oxlint": "^1.73.0",
     "typescript": "^6.0.3"
   },
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "11.10.0",
-      "onFail": "download"
-    }
-  }
+  "packageManager": "pnpm@11.10.0"
 }

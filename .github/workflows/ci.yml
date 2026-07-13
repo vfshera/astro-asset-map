@@ -20,11 +20,6 @@ jobs:
     timeout-minutes: 15 # bound worst-case runtime / exfiltration window
 
     steps:
-      - name: Harden Runner
-        uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
-        with:
-          egress-policy: audit # switch to `block` + `allowed-endpoints` once you've reviewed a few runs' network logs
-
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           persist-credentials: false # don't leave GITHUB_TOKEN in .git/config for build-time code to read

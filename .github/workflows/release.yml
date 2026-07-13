@@ -11,6 +11,8 @@ concurrency:
 jobs:
   ci:
     uses: ./.github/workflows/ci.yml
+    with:
+      concurrency-group: ci
     permissions:
       contents: read
 

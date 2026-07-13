@@ -9,7 +9,7 @@ export default defineConfig((options) => {
     target: "es2022",
     unbundle: true,
     dts: true,
-    sourcemap: true,
+    sourcemap: process.env.PUBLISHING !== "true",
     clean: true,
     splitting: true,
     minify: !dev,

@@ -40,7 +40,7 @@
   "scripts": {
     "dev": "tsdown --watch",
     "build": "tsdown",
-    "prepublishOnly": "pnpm build",
+    "prepublishOnly": "PUBLISHING=true pnpm build",
     "test": "vitest",
     "test:run": "vitest run",
     "test:watch": "vitest --watch",

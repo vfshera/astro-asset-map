@@ -1,5 +1,11 @@
 # astro-asset-map
 
+## 0.1.1
+
+### Patch Changes
+
+- [#20](https://github.com/vfshera/astro-asset-map/pull/20) [`cc061e1`](https://github.com/vfshera/astro-asset-map/commit/cc061e142ecacba0522c187a3d24e1d2a3f05836) Thanks [@vfshera](https://github.com/vfshera)! - Disable source map generation during publish
+
 ## 0.1.0
 
 ### Minor Changes

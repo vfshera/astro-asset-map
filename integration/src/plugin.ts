@@ -4,32 +4,36 @@ import {
   RESOLVED_VIRTUAL_MODULE_ID,
   PLUGIN_NAME,
   WATCH_DEBOUNCE_MS,
+  VALID_ASSET_EXT_REGEX,
+  PUBLIC_ASSET_PREFIX,
 } from "./constants.js";
 import { generateTypes } from "./generator.js";
 import { buildRuntimeModule } from "./runtime.js";
 import { scanAssets, getDirectories } from "./scanner.js";
 import { debounce } from "./utils.js";
-import type { AssetsVitePluginOptions, ScannedAsset } from "./types.js";
+import type { AssetsVitePluginOptions } from "./types.js";
 import type { Plugin } from "vite";
 import fs from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
 export function assetsMapVitePlugin(options: AssetsVitePluginOptions): Plugin {
-  const { assetsDir, root, typesFileRef } = options;
+  const { assetsDir, publicDir, root, typesFileRef } = options;
   const globBase = path.relative(root, assetsDir);
-
-  let assets: ScannedAsset[] = [];
 
   async function regenerateTypes(): Promise<void> {
     if (!typesFileRef.url) {
       return;
     }
 
-    assets = await scanAssets(assetsDir);
-
+    const assets = await scanAssets(assetsDir);
+    const publicAssets = await scanAssets(publicDir);
     const directories = getDirectories(assets);
 
-    const dts = generateTypes(assets, directories);
+    const dts = generateTypes(
+      [...assets, ...publicAssets.map((a) => ({ ...a, path: `${PUBLIC_ASSET_PREFIX}${a.path}` }))],
+      directories,
+    );
+
     const filePath = fileURLToPath(typesFileRef.url);
 
     try {
@@ -84,17 +88,18 @@ export function assetsMapVitePlugin(options: AssetsVitePluginOptions): Plugin {
       }, WATCH_DEBOUNCE_MS);
 
       const onEvent = (changedPath: string) => {
-        if (!path.normalize(changedPath).startsWith(path.normalize(assetsDir))) {
-          return;
-        }
+        const changed = path.normalize(changedPath);
 
-        handleFsEvent();
+        const isInAssetsDir = changed.startsWith(path.normalize(assetsDir));
+        const isInPublicDir = changed.startsWith(path.normalize(publicDir));
+
+        if (VALID_ASSET_EXT_REGEX.test(changed) && (isInAssetsDir || isInPublicDir)) {
+          handleFsEvent();
+        }
       };
 
       server.watcher.on("add", onEvent);
       server.watcher.on("unlink", onEvent);
-      server.watcher.on("addDir", onEvent);
-      server.watcher.on("unlinkDir", onEvent);
     },
   };
 }

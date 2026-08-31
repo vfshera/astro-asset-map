@@ -1,4 +1,4 @@
-import { PACKAGE_NAME, VALID_INPUT_FORMATS } from "./constants.js";
+import { PACKAGE_NAME, PUBLIC_ASSET_PREFIX, VALID_INPUT_FORMATS } from "./constants.js";
 
 const VALID_GLOB_EXTENSIONS = VALID_INPUT_FORMATS.join(",");
 
@@ -35,8 +35,12 @@ const directories = Object.freeze(
 );
 
 function asset(path) {
+  if (path.startsWith("${PUBLIC_ASSET_PREFIX}")) {
+    return path.replace("${PUBLIC_ASSET_PREFIX}", "/");
+  }
+
   if (path in assetMap) return assetMap[path];
-  
+
   throw createUnknownAssetError(path, assetPaths, directories);
 }
 

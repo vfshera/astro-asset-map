@@ -14,10 +14,11 @@ export function assetMap(): AstroIntegration {
       "astro:config:setup": ({ config, updateConfig }) => {
         const root = fileURLToPath(config.root);
         const assetsDir = path.resolve(root, ASSETS_DIR);
+        const publicDir = path.resolve(fileURLToPath(config.publicDir));
 
         updateConfig({
           vite: {
-            plugins: [assetsMapVitePlugin({ assetsDir, root, typesFileRef })],
+            plugins: [assetsMapVitePlugin({ assetsDir, publicDir, root, typesFileRef })],
           },
         });
       },

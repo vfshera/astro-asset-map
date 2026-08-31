@@ -10,6 +10,8 @@ export const TYPES_FILE_NAME = "astro-asset-map.d.ts";
 
 export const ASSETS_DIR = "src/assets";
 
+export const PUBLIC_ASSET_PREFIX = "public:";
+
 export const VALID_INPUT_FORMATS = [
   "jpeg",
   "jpg",
@@ -20,6 +22,8 @@ export const VALID_INPUT_FORMATS = [
   "svg",
   "avif",
 ] as const;
+
+export const VALID_ASSET_EXT_REGEX = new RegExp(`\\.(${VALID_INPUT_FORMATS.join("|")})$`, "i");
 
 export const WATCH_DEBOUNCE_MS = 150;
 

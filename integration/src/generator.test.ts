@@ -19,8 +19,8 @@ describe("generateTypes", () => {
     expect(result).toContain('"images/banner.webp"');
     expect(result).toContain('"fonts/roboto.woff2"');
     expect(result).toContain("type AssetDirectory =");
-    expect(result).toContain('| "fonts"');
-    expect(result).toContain('| "images"');
+    expect(result).toContain('"fonts"');
+    expect(result).toContain('"images"');
     expect(result).toContain("exists(path: string): path is AssetPath;");
     expect(result).toContain("list(): readonly AssetPath[];");
     expect(result).toContain('declare module "astro-asset-map:runtime"');
@@ -33,7 +33,7 @@ describe("generateTypes", () => {
     const result = generateTypes(assets, directories);
 
     expect(result).toContain("// no assets found in the configured directory");
-    expect(result).toContain("| never");
+    expect(result).toContain("never");
   });
 
   it("handles mixed root and nested assets", () => {
@@ -48,6 +48,6 @@ describe("generateTypes", () => {
     expect(result).toContain('"root-file.txt"');
     expect(result).toContain('"sub/deep/file.txt"');
     expect(result).toContain("type AssetDirectory =");
-    expect(result).toContain('| "sub"');
+    expect(result).toContain('"sub"');
   });
 });

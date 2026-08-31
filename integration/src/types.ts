@@ -10,6 +10,8 @@ export interface TypesFileRef {
 }
 
 export interface AssetsVitePluginOptions {
+  /** Absolute path to the public directory */
+  publicDir: string;
   /** Absolute path to the assets directory */
   assetsDir: string;
   /** Absolute path to the project root */

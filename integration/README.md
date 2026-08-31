@@ -104,6 +104,20 @@ Unknown paths throw an error.
 
 ---
 
+### Public assets
+
+Files in the `public` directory can be referenced with a `public:` prefix. The value is a URL string, not an imported module.
+
+```ts
+asset("public:favicon.svg"); // "/favicon.svg"
+```
+
+Use it with a plain element — `asset("public:...")` is not compatible with `<Image>`. It does not validate that the file exists and is a passthrough to `/`.
+
+`exists()` and `list()` cover `src/assets` only; they do not include public assets.
+
+---
+
 ### `asset.exists(path)`
 
 Checks whether an asset exists.
@@ -174,7 +188,7 @@ asset.list("photos"); // ❌ TypeScript error
 
 ## How it works
 
-During development and build, `astro-asset-map` scans `src/assets` and generates a typed asset map.
+During development and build, `astro-asset-map` scans `src/assets` and the `public` directory and generates a typed asset map.
 
 At runtime, assets are resolved using a lightweight lookup generated from `import.meta.glob()`.
 
@@ -185,7 +199,7 @@ Whenever assets are added or removed, the generated types are updated automatica
 ## Requirements
 
 - Astro 6+
-- Assets must live inside `src/assets`
+- Assets must live inside `src/assets` (or `public` via the `public:` prefix)
 
 ---
 

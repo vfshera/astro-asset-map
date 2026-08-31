@@ -1,5 +1,11 @@
 # astro-asset-map
 
+## 0.2.0
+
+### Minor Changes
+
+- [#22](https://github.com/vfshera/astro-asset-map/pull/22) [`d5a6a03`](https://github.com/vfshera/astro-asset-map/commit/d5a6a034ba04f9548c40b6d447372b3c3a6331ad) Thanks [@vfshera](https://github.com/vfshera)! - Add support for public directory assets via the `public:` prefix
+
 ## 0.1.1
 
 ### Patch Changes

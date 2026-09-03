@@ -29,7 +29,7 @@ export function assetsMapVitePlugin(options: AssetsVitePluginOptions): Plugin {
 
     const all = [...cache.values()];
     const assets = all.filter((a) => !a.path.startsWith(PUBLIC_ASSET_PREFIX));
-    const directories = getDirectories(assets);
+    const directories = [...getDirectories(assets), PUBLIC_ASSET_PREFIX];
 
     const dts = generateTypes(all, directories);
 
@@ -83,7 +83,11 @@ export function assetsMapVitePlugin(options: AssetsVitePluginOptions): Plugin {
 
     load(id) {
       if (id === RESOLVED_VIRTUAL_MODULE_ID) {
-        return buildRuntimeModule(globBase);
+        const publicAssets = cache
+          ? [...cache.keys()].filter((k) => k.startsWith(PUBLIC_ASSET_PREFIX))
+          : [];
+
+        return buildRuntimeModule(globBase, publicAssets);
       }
 
       return null;

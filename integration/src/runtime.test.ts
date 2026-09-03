@@ -3,7 +3,7 @@ import { buildRuntimeModule } from "./runtime.js";
 
 describe("buildRuntimeModule", () => {
   it("generates a runtime module with correct glob path", () => {
-    const result = buildRuntimeModule("src/assets");
+    const result = buildRuntimeModule("src/assets", []);
 
     expect(result).toContain('import.meta.glob("/src/assets/**/*.{');
     expect(result).toContain("stripPrefix");
@@ -15,21 +15,28 @@ describe("buildRuntimeModule", () => {
   });
 
   it("caches assetPaths and directories at module init", () => {
-    const result = buildRuntimeModule("src/assets");
+    const result = buildRuntimeModule("src/assets", []);
 
     expect(result).toContain("const assetPaths = Object.freeze(Object.keys(assetMap))");
     expect(result).toContain("const directories = Object.freeze(");
   });
 
   it("imports createUnknownAssetError from astro-asset-map/utils", () => {
-    const result = buildRuntimeModule("src/assets");
+    const result = buildRuntimeModule("src/assets", []);
 
     expect(result).toContain('import { createUnknownAssetError } from "astro-asset-map/utils"');
   });
 
   it("calls createUnknownAssetError on lookup failure", () => {
-    const result = buildRuntimeModule("src/assets");
+    const result = buildRuntimeModule("src/assets", []);
 
     expect(result).toContain("throw createUnknownAssetError(path, assetPaths, directories)");
+  });
+
+  it("emits public asset passthrough entries", () => {
+    const result = buildRuntimeModule("src/assets", ["public:favicon.svg"]);
+
+    expect(result).toContain('["public:favicon.svg"]');
+    expect(result).toContain('assetMap[path] = () => path.replace("public:", "/")');
   });
 });

@@ -1,5 +1,9 @@
 import { closest, distance } from "fastest-levenshtein";
-import { MAX_EDIT_DISTANCE } from "./constants.js";
+import { MAX_EDIT_DISTANCE, PACKAGE_NAME } from "./constants.js";
+
+function error(message: string): Error {
+  return new Error(`[${PACKAGE_NAME}]\n\n${message}`);
+}
 
 export function createUnknownAssetError(
   path: string,
@@ -12,9 +16,7 @@ export function createUnknownAssetError(
   if (directory && !directories.includes(directory)) {
     const suggested = closest(directory, directories);
     if (suggested) {
-      return new Error(
-        `[astro-asset-map]\n\nUnknown directory "${directory}".\n\nDid you mean "${suggested}"?`,
-      );
+      return error(`Unknown directory "${directory}".\n\nDid you mean "${suggested}"?`);
     }
   }
 
@@ -30,26 +32,22 @@ export function createUnknownAssetError(
       if (closeMatches.length > 0) {
         const all = [candidate, ...closeMatches].slice(0, 5);
 
-        return new Error(
-          `[astro-asset-map]\n\nUnknown asset "${path}".\n\nDid you mean one of:\n\n${all.map((p) => `• ${p}`).join("\n")}`,
+        return error(
+          `Unknown asset "${path}".\n\nDid you mean one of:\n\n${all.map((p) => `• ${p}`).join("\n")}`,
         );
       }
 
-      return new Error(
-        `[astro-asset-map]\n\nUnknown asset "${path}".\n\nDid you mean "${candidate}"?`,
-      );
+      return error(`Unknown asset "${path}".\n\nDid you mean "${candidate}"?`);
     }
   }
 
   if (directories.length > 0) {
-    return new Error(
-      `[astro-asset-map]\n\nUnknown asset "${path}".\n\nAvailable directories:\n\n${directories.map((d) => `• ${d}`).join("\n")}\n\nUse \`asset.list()\` to inspect available assets.`,
+    return error(
+      `Unknown asset "${path}".\n\nAvailable directories:\n\n${directories.map((d) => `• ${d}`).join("\n")}\n\nUse \`asset.list()\` to inspect available assets.`,
     );
   }
 
-  return new Error(
-    `[astro-asset-map]\n\nUnknown asset "${path}".\n\nThe assets directory is empty or does not exist.`,
-  );
+  return error(`Unknown asset "${path}".\n\nThe assets directory is empty or does not exist.`);
 }
 
 export function debounce<T extends (...args: never[]) => void>(fn: T, delay: number): T {

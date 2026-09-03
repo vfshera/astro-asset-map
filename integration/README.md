@@ -86,7 +86,7 @@ import { asset } from "astro-asset-map:runtime";
 />
 ```
 
-The returned value is exactly what `Image` expects.
+`asset()` returns a `Promise`, which Astro's `<Image>` accepts directly — no `await` needed.
 
 ---
 
@@ -94,10 +94,28 @@ The returned value is exactly what `Image` expects.
 
 ### `asset(path)`
 
-Returns the imported asset.
+Returns a `Promise` of the imported asset module. Astro's `<Image src>` accepts this directly — no `await` needed:
 
 ```ts
 const logo = asset("images/logo.svg");
+```
+
+Or `await` it and access `.default` for a raw import:
+
+```ts
+const logo = (await asset("images/logo.svg")).default;
+```
+
+Since an `.svg` default import is an [Astro component](https://docs.astro.build/en/guides/images/#svg-components), you can render it directly:
+
+```astro
+---
+import { asset } from "astro-asset-map:runtime";
+
+const Favicon = (await asset("favicon.svg")).default;
+---
+
+<Favicon />
 ```
 
 Unknown paths throw an error.
@@ -106,15 +124,19 @@ Unknown paths throw an error.
 
 ### Public assets
 
-Files in the `public` directory can be referenced with a `public:` prefix. The value is a URL string, not an imported module.
+Files in the `public` directory can be referenced with a `public:` prefix. Unlike `src/assets` assets, public assets return a plain URL **string** — not a Promise.
 
 ```ts
-asset("public:favicon.svg"); // "/favicon.svg"
+asset("public:favicon.svg"); // "/favicon.svg" (string)
 ```
 
-Use it with a plain element — `asset("public:...")` is not compatible with `<Image>`. It does not validate that the file exists and is a passthrough to `/`.
+A public URL string also works with Astro's `<Image>` (it accepts URL strings for public assets):
 
-`exists()` and `list()` cover `src/assets` only; they do not include public assets.
+```astro
+<Image src={asset("public:favicon.svg")} alt="Icon" />
+```
+
+Unlike `src/assets` assets, public ones aren't imported or processed — they are a passthrough to `/` and are not validated against the filesystem at runtime. `exists()` and `list()` include public assets (`public:...` paths) alongside `src/assets`.
 
 ---
 

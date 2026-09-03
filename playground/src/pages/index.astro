@@ -1,6 +1,8 @@
 ---
 import { asset } from "astro-asset-map:runtime";
 import { Image } from "astro:assets";
+
+const Favicon = (await asset("favicon.svg")).default;
 ---
 
 <html lang="en">
@@ -20,7 +22,7 @@ import { Image } from "astro:assets";
         alt="Astro"
       />
       <img width="200" src={asset("public:favicon.svg")} alt="Astro" />
-      <Image src={asset("favicon.svg")} alt="Astro" />
+      <Favicon />
       <Image src={asset("tsdown.svg")} alt="Tsdown" />
       <Image src={asset("images/bear.png")} alt="Bear" />
       <Image src={asset("images/dog.jpg")} alt="Dog" />

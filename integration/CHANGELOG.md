@@ -1,5 +1,11 @@
 # astro-asset-map
 
+## 0.2.1
+
+### Patch Changes
+
+- [#24](https://github.com/vfshera/astro-asset-map/pull/24) [`ebc16aa`](https://github.com/vfshera/astro-asset-map/commit/ebc16aa59d1c29438f0d10c6335939bb4830a36e) Thanks [@vfshera](https://github.com/vfshera)! - The dev watcher now maintains an in-memory cache of scanned assets, updating it incrementally on add/unlink events instead of re-scanning the full tree on every filesystem change. Public-directory assets are indexed under their `public:`-prefixed keys consistently, so type generation handles both asset sources uniformly.
+
 ## 0.2.0
 
 ### Minor Changes

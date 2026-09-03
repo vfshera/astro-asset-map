@@ -1,6 +1,6 @@
 {
   "name": "astro-asset-map",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Type-safe asset lookup for Astro.",
   "keywords": [
     "astro",

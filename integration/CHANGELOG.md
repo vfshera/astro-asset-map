@@ -1,5 +1,13 @@
 # astro-asset-map
 
+## 1.0.0
+
+### Major Changes
+
+- [#27](https://github.com/vfshera/astro-asset-map/pull/27) [`1a33064`](https://github.com/vfshera/astro-asset-map/commit/1a33064a5af2e1f50830e58979fd5c8121592c8f) Thanks [@vfshera](https://github.com/vfshera)! - `asset()` now returns a `Promise<typeof import(...)>` instead of the default export directly. Astro's `<Image src>` accepts this natively — no `await` needed. For raw imports (including SVG rendered as an Astro component), access `.default` after awaiting: `(await asset("path")).default`. Public assets (`public:...`) continue to return a plain string URL.
+
+  Assets are now resolved lazily via a non-eager glob, so the underlying module isn't bundled until `asset()` is actually called. `exists()` and `list()` now include `public:`-prefixed paths alongside `src/assets`.
+
 ## 0.2.1
 
 ### Patch Changes
